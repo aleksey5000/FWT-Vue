@@ -1,0 +1,31 @@
+{
+  "name": "fwt---vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.6.5",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.0.0",
+    "vue": "^3.3.11"
+  },
+  "devDependencies": {
+    "axios": "^1.6.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "@vitejs/plugin-vue": "^4.5.2",
+    "eslint-plugin-vue": "^9.20.1",
+    "exact": "^0.8.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vue-tsc": "^1.8.25"
+  }
+}
