@@ -87,7 +87,7 @@
       :style="{
         borderColor: svgColor,
       }"
-      v-else-if="!isSuccess"
+      v-else-if="!isSuccess && isOpen"
     >
       Author list didn't loaded yet
     </div>
@@ -221,13 +221,6 @@ export default {
       this.openClose(this.isOpen);
       this.isChosen = true;
     },
-    cutLength(word: string) {
-      if (word.length > 28) {
-        return `${word.substr(0, 25)}...`;
-      } else {
-        return word;
-      }
-    },
   },
   watch: {
     isLight(state) {
@@ -247,9 +240,14 @@ export default {
     notFound(state: boolean) {
       state
         ? ((this.sBorderRadus = "0px"), (this.sBorderColor = "grey"))
-        : ((this.sBorderRadus = "8px"), (this.sBorderColor = "black"));
+        : ((this.sBorderRadus = "8px"),
+          (this.sBorderColor = "black"),
+          this.openClose(!this.isOpen),
+          this.ulScroll(this.isOpen));
     },
     inpValue(newValue: string) {
+      const a = document.getElementById("authorList");
+      a && (this.liPos = a.children[0].getBoundingClientRect().top);
       if (this.inpValue == "Author" || this.inpValue == "") {
         this.isOpen = false;
         this.visibleAuthors = this.authors;
