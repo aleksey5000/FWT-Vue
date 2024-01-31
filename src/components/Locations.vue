@@ -27,7 +27,7 @@
         <union />
       </button>
       <button @click="openClose(isOpen)">
-        <small-arrow :state="svgColor" />
+        <small-arrow :color="svgColor" />
       </button>
     </div>
     <div
@@ -160,7 +160,6 @@ export default {
         this.isSuccess = true;
       } catch (e) {
         alert("Error: Locations list didn't loaded");
-      } finally {
       }
     },
     get1stLiPos() {

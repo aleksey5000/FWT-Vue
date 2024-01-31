@@ -176,3 +176,22 @@ header {
     }
   }
 }
+
+.pagination {
+  min-width: 287px;
+  margin-top: 35px;
+  display: inline-flex;
+  align-items: top;
+  border: 1px solid;
+  border-radius: 8px;
+  button {
+    width: 41px;
+    height: 41px;
+    background-color: transparent;
+    border-right: 1px solid;
+    cursor: default;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

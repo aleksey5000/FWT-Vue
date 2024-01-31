@@ -6,7 +6,7 @@
       </div>
       <div>
         <button @click="changeTheme(isLight)">
-          <sun :state="sunColor" />
+          <sun :color="sunColor" />
         </button>
       </div>
     </header>
@@ -16,6 +16,9 @@
         <authors :svgColor="sunColor" :isLight="isLight" />
         <locations :svgColor="sunColor" :isLight="isLight" />
         <created :svgColor="sunColor" :isLight="isLight" />
+      </div>
+      <div>
+        <pic-block :svgColor="sunColor" :isLight="isLight" />
       </div>
     </main>
   </div>
@@ -27,6 +30,7 @@ import FirstInput from "./components/FirstInput.vue";
 import Authors from "./components/Authors.vue";
 import Locations from "./components/Locations.vue";
 import Created from "./components/Created.vue";
+import PicBlock from "./components/PicBlock.vue";
 
 export default {
   components: {
@@ -35,6 +39,7 @@ export default {
     Authors,
     Locations,
     Created,
+    PicBlock,
   },
   data() {
     return {

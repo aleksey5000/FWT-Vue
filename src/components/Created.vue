@@ -10,7 +10,7 @@
     <div class="smallArrow">
       <p :style="{ color: svgColor }">Created</p>
       <button @click="openClose(isOpen)">
-        <small-arrow :state="svgColor" />
+        <small-arrow :color="svgColor" />
       </button>
     </div>
     <div class="inputs" :style="{ display: sDisplay }">
@@ -23,6 +23,7 @@
 
 <script lang="ts">
 import SmallArrow from "../components/svg/SmallArrow.vue";
+import TypeCrComp from "../Types/CreatedComp";
 
 export default {
   props: {
@@ -38,7 +39,7 @@ export default {
   components: {
     SmallArrow,
   },
-  data() {
+  data(): TypeCrComp {
     return {
       isOpen: false,
       sHeight: "45px",
