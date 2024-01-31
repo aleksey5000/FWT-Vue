@@ -13,15 +13,11 @@
         <small-arrow :state="svgColor" />
       </button>
     </div>
-    <ul>
-      <li>
-        <div class="inputs" :style="{ display: sDisplay }">
-          <input placeholder="from" :style="{ backgroundColor: sInpClr }" />
-          <hr :style="{ backgroundColor: svgColor }" />
-          <input placeholder="before" :style="{ backgroundColor: sInpClr }" />
-        </div>
-      </li>
-    </ul>
+    <div class="inputs" :style="{ display: sDisplay }">
+      <input placeholder="from" :style="{ backgroundColor: sInpClr }" />
+      <hr :style="{ backgroundColor: svgColor }" />
+      <input placeholder="before" :style="{ backgroundColor: sInpClr }" />
+    </div>
   </div>
 </template>
 
