@@ -1,5 +1,7 @@
 <template>
+  <paintings :paintings="paintings" />
   <div
+    v-if="isSuccess"
     class="pagination"
     :style="{
       borderColor: svgColor,
@@ -46,7 +48,7 @@
 </template>
 
 <script lang="ts">
-//import Paintings from "./Paintings.vue";
+import Paintings from "./Paintings.vue";
 import axios from "axios";
 import linkParams from "../const/linkParams";
 import TypePicBlockComp from "../Types/PicBlockComp";
@@ -67,7 +69,7 @@ export default {
     },
   },
   components: {
-    //Paintings,
+    Paintings,
     arr2L,
     arrL,
     arr2R,
@@ -78,9 +80,12 @@ export default {
       pages: [1],
       limit: 12,
       lastPage: 1,
+      currentPage: 0,
       isFirst: true,
       isLast: false,
-      currentPage: 0,
+      isSuccess: false,
+      params: linkParams,
+      paintings: [],
     };
   },
   methods: {
@@ -92,8 +97,26 @@ export default {
         );
         this.lastPage = Math.ceil(response.data.length / this.limit);
         this.currentPage = 1;
+        this.isSuccess = true;
       } catch (e) {
         alert("Error: Couldn't count up total pages");
+      }
+    },
+    async getPaintings() {
+      try {
+        const response = await axios.get(
+          "https://test-front.framework.team/paintings",
+          {
+            params: {
+              ...linkParams,
+              _page: this.currentPage,
+              _limit: this.limit,
+            },
+          },
+        );
+        this.paintings = response.data;
+      } catch (e) {
+        alert("Error: Couldn't get paintings");
       }
     },
     getPages() {
@@ -198,6 +221,7 @@ export default {
   },
   mounted() {
     this.getCount();
+    this.getPaintings();
   },
 };
 </script>

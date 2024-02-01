@@ -129,7 +129,6 @@ export default {
   data(): TypeLocComp {
     return {
       locations: [],
-      filtLocations: [],
       visibleLocations: [],
       isSuccess: false,
       isOpen: false,

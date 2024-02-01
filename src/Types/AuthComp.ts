@@ -3,7 +3,6 @@ import TypeAuthor from "./AuthorType";
 type TypeAuthComp = {
   sBgrndClr: string;
   authors: TypeAuthor[];
-  filtAuthors: TypeAuthor[];
   visibleAuthors: TypeAuthor[];
   isSuccess: boolean;
   isOpen: boolean;

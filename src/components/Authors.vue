@@ -129,7 +129,6 @@ export default {
   data(): TypeAuthComp {
     return {
       authors: [],
-      filtAuthors: [],
       visibleAuthors: [],
       isSuccess: false,
       isOpen: false,

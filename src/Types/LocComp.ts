@@ -3,7 +3,6 @@ import TypeLocation from "./LocationType";
 type TypeLocComp = {
   sBgrndClr: string;
   locations: TypeLocation[];
-  filtLocations: TypeLocation[];
   visibleLocations: TypeLocation[];
   isSuccess: boolean;
   isOpen: boolean;
