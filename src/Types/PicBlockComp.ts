@@ -1,5 +1,6 @@
-import TypeLink from "./LinkParamsType";
+import { Store } from "pinia";
 import TypePics from "./PaintingsType";
+import storeType from "./storeType";
 
 type TypePicBlockComp = {
   pages: number[];
@@ -9,7 +10,7 @@ type TypePicBlockComp = {
   isFirst: boolean;
   isLast: boolean;
   currentPage: number;
-  params: TypeLink;
+  store: Store<string, storeType>;
   paintings: TypePics[];
 };
 

@@ -1,4 +1,6 @@
 import TypeLocation from "./LocationType";
+import { Store } from "pinia";
+import storeType from "./storeType";
 
 type TypeLocComp = {
   sBgrndClr: string;
@@ -18,6 +20,7 @@ type TypeLocComp = {
   liPos: number;
   sYPosition: number;
   inpValue: string;
+  store: Store<string, storeType>;
 };
 
 export default TypeLocComp;

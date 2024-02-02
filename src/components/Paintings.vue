@@ -1,6 +1,6 @@
 <template>
   <div class="paintings">
-    <div v-for="pic in paintings" className="picBlock">
+    <div v-for="pic in paintings" className="picBlocks">
       <img
         :src="`https://test-front.framework.team${pic.imageUrl}`"
         :alt="`${pic.name}`"
@@ -21,17 +21,32 @@
 <script lang="ts">
 import TypePics from "../Types/PaintingsType";
 import TypePaintings from "../Types/PaintingsComp";
+import TypeAuthor from "../Types/AuthorType";
+import TypeLocation from "../Types/LocationType";
+import useStore from "../store/store";
 
 export default {
   props: {
     paintings: Array<TypePics>,
   },
   data(): TypePaintings {
-    return {};
+    return {
+      store: useStore(),
+    };
   },
   methods: {
-    findAuthor(id: number) {},
-    findLocation(id: number) {},
+    findAuthor(id: number) {
+      const author: TypeAuthor | undefined = this.store.authors.find(
+        (elem: TypeAuthor) => elem.id == id,
+      );
+      return author?.name;
+    },
+    findLocation(id: number) {
+      const location: TypeLocation | undefined = this.store.locations.find(
+        (elem: TypeLocation) => elem.id == id,
+      );
+      return location?.location;
+    },
   },
   watch: {},
 };

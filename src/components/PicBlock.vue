@@ -50,7 +50,7 @@
 <script lang="ts">
 import Paintings from "./Paintings.vue";
 import axios from "axios";
-import linkParams from "../const/linkParams";
+import useStore from "../store/store";
 import TypePicBlockComp from "../Types/PicBlockComp";
 import arr2L from "../components/svg/arr2L.vue";
 import arrL from "../components/svg/arrL.vue";
@@ -80,11 +80,11 @@ export default {
       pages: [1],
       limit: 12,
       lastPage: 1,
-      currentPage: 0,
+      currentPage: 1,
       isFirst: true,
       isLast: false,
       isSuccess: false,
-      params: linkParams,
+      store: useStore(),
       paintings: [],
     };
   },
@@ -93,25 +93,25 @@ export default {
       try {
         const response = await axios.get(
           "https://test-front.framework.team/paintings",
-          { params: linkParams },
+          { params: this.store.params },
         );
         this.lastPage = Math.ceil(response.data.length / this.limit);
-        this.currentPage = 1;
         this.isSuccess = true;
       } catch (e) {
         alert("Error: Couldn't count up total pages");
       }
     },
-    async getPaintings() {
+    async getPaintings(page: number) {
       try {
+        const settings = {
+          ...this.store.params,
+          _page: page,
+          _limit: this.limit,
+        };
         const response = await axios.get(
           "https://test-front.framework.team/paintings",
           {
-            params: {
-              ...linkParams,
-              _page: this.currentPage,
-              _limit: this.limit,
-            },
+            params: settings,
           },
         );
         this.paintings = response.data;
@@ -217,11 +217,12 @@ export default {
     currentPage(newPage: number) {
       newPage == 1 ? (this.isFirst = true) : (this.isFirst = false);
       newPage == this.lastPage ? (this.isLast = true) : (this.isLast = false);
+      this.getPaintings(newPage);
     },
   },
   mounted() {
     this.getCount();
-    this.getPaintings();
+    this.getPaintings(this.currentPage);
   },
 };
 </script>

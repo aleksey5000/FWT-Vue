@@ -1,4 +1,6 @@
 import TypeAuthor from "./AuthorType";
+import { Store } from "pinia";
+import storeType from "./storeType";
 
 type TypeAuthComp = {
   sBgrndClr: string;
@@ -18,6 +20,7 @@ type TypeAuthComp = {
   liPos: number;
   sYPosition: number;
   inpValue: string;
+  store: Store<string, storeType>;
 };
 
 export default TypeAuthComp;

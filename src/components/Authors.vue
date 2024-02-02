@@ -110,6 +110,7 @@ import TypeAuthComp from "../Types/AuthComp";
 import SmallArrow from "../components/svg/SmallArrow.vue";
 import Union from "../components/svg/Union.vue";
 import axios from "axios";
+import useStore from "../store/store";
 
 export default {
   props: {
@@ -145,6 +146,7 @@ export default {
       sYPosition: 0,
       liPos: 0,
       inpValue: "Author",
+      store: useStore(),
     };
   },
   methods: {
@@ -157,6 +159,7 @@ export default {
         this.authors = data;
         this.visibleAuthors = data;
         this.isSuccess = true;
+        this.store.authors = data;
       } catch (e) {
         alert("Error: Authors list didn't loaded");
       }

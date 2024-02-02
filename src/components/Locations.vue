@@ -110,6 +110,7 @@ import TypeLocComp from "../Types/LocComp";
 import SmallArrow from "../components/svg/SmallArrow.vue";
 import Union from "../components/svg/Union.vue";
 import axios from "axios";
+import useStore from "../store/store";
 
 export default {
   props: {
@@ -145,6 +146,7 @@ export default {
       sYPosition: 0,
       liPos: 0,
       inpValue: "Location",
+      store: useStore(),
     };
   },
   methods: {
@@ -157,6 +159,7 @@ export default {
         this.locations = data;
         this.visibleLocations = data;
         this.isSuccess = true;
+        this.store.locations = data;
       } catch (e) {
         alert("Error: Locations list didn't loaded");
       }
