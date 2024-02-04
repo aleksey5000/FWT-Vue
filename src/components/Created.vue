@@ -85,7 +85,7 @@ export default {
       const wdth = window.innerWidth;
       state
         ? ((this.sDisplay = "flex"),
-          wdth > 767 ? (this.sHeight = "130px") : (this.sHeight = "190px"))
+          wdth > 1023 ? (this.sHeight = "130px") : (this.sHeight = "190px"))
         : ((this.sHeight = "45px"), (this.sDisplay = "none"));
       this.isOpen = !state;
     },

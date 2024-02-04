@@ -1,0 +1,67 @@
+.created {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid;
+  position: relative;
+  z-index: 1;
+  .smallArrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    height: 43px;
+    p {
+      padding: 15px 0 0 10px;
+    }
+    button {
+      width: 20px;
+      margin-right: 5px;
+      height: 43px;
+    }
+  }
+  .inputs {
+    justify-content: center;
+    align-items: center;
+    margin: 20px 10px 0 10px;
+    .smallInput {
+      width: 35.849%;
+      height: 45px;
+      border-radius: 8px;
+      display: flex;
+      button {
+        padding: 0 5px 0 5px;
+      }
+      svg {
+        height: 10px;
+      }
+    }
+    input {
+      padding-left: 15px;
+      border-radius: 8px;
+      height: 43px;
+      width: 100%;
+      background-color: transparent;
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    }
+    hr {
+      margin: 0 10px 0 10px;
+      height: 1px;
+      width: 12px;
+    }
+  }
+  @media (max-width: 1023px) {
+    .inputs {
+      flex-direction: column;
+      margin: 10px 0 0 0;
+      height: 60.52%;
+      justify-content: space-between;
+      .smallInput {
+        width: 70%;
+      }
+    }
+    hr {
+      display: none;
+    }
+  }
+}

@@ -16,7 +16,6 @@
       </div>
     </div>
   </div>
-  <div v-else>Loading...</div>
   <div v-if="paintings?.length == 0">Paintings not found</div>
 </template>
 

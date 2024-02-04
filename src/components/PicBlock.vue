@@ -1,49 +1,51 @@
 <template>
-  <paintings :paintings="paintings" />
-  <div
-    v-if="isSuccess"
-    class="pagination"
-    :style="{
-      borderColor: svgColor,
-    }"
-  >
-    <button
-      @click="clickArr2L"
+  <div class="pics">
+    <paintings :paintings="paintings" />
+    <div
+      v-if="isSuccess"
+      class="pagination"
       :style="{
-        borderRightColor: svgColor,
+        borderColor: svgColor,
       }"
     >
-      <arr2L :color="svgColor" :state="isFirst" />
-    </button>
-    <button
-      @click="clickArrL"
-      :style="{
-        borderRightColor: svgColor,
-      }"
-    >
-      <arrL :color="svgColor" :state="isFirst" />
-    </button>
-    <button
-      v-for="page in pages"
-      :style="changeColor(isLight, page)"
-      :id="`page ${page}`"
-      @mouseover="mOver($event)"
-      @mouseout="mOut($event)"
-      @click="changePage(page)"
-    >
-      {{ page }}
-    </button>
-    <button
-      @click="clickArrR"
-      :style="{
-        borderRightColor: svgColor,
-      }"
-    >
-      <arrR :color="svgColor" :state="isLast" />
-    </button>
-    <button @click="clickArr2R">
-      <arr2R :color="svgColor" :state="isLast" />
-    </button>
+      <button
+        @click="clickArr2L"
+        :style="{
+          borderRightColor: svgColor,
+        }"
+      >
+        <arr2L :color="svgColor" :state="isFirst" />
+      </button>
+      <button
+        @click="clickArrL"
+        :style="{
+          borderRightColor: svgColor,
+        }"
+      >
+        <arrL :color="svgColor" :state="isFirst" />
+      </button>
+      <button
+        v-for="page in pages"
+        :style="changeColor(isLight, page)"
+        :id="`page ${page}`"
+        @mouseover="mOver($event)"
+        @mouseout="mOut($event)"
+        @click="changePage(page)"
+      >
+        {{ page }}
+      </button>
+      <button
+        @click="clickArrR"
+        :style="{
+          borderRightColor: svgColor,
+        }"
+      >
+        <arrR :color="svgColor" :state="isLast" />
+      </button>
+      <button @click="clickArr2R">
+        <arr2R :color="svgColor" :state="isLast" />
+      </button>
+    </div>
   </div>
 </template>
 

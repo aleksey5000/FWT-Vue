@@ -17,9 +17,7 @@
         <locations :svgColor="sunColor" :isLight="isLight" />
         <created :svgColor="sunColor" :isLight="isLight" />
       </div>
-      <div>
-        <pic-block :svgColor="sunColor" :isLight="isLight" />
-      </div>
+      <pic-block :svgColor="sunColor" :isLight="isLight" />
     </main>
   </div>
 </template>
