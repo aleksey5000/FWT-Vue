@@ -52,7 +52,7 @@
           class="item"
           @mouseover="liMOver($event)"
           @mouseout="liMOut($event)"
-          @click="liClick($event)"
+          @click="liClick($event, loc.id)"
           :style="{
             backgroundColor: sBgrndClr,
             color: svgColor,
@@ -215,12 +215,13 @@ export default {
           (this.sYPosition = b))
         : (this.sYPosition = 0);
     },
-    liClick(event: MouseEvent) {
+    liClick(event: MouseEvent, id: number) {
       const a: Partial<HTMLElement> | null = event.target;
       a && a.innerText && (this.inpValue = a.innerText);
       this.count = 0;
       this.openClose(this.isOpen);
       this.isChosen = true;
+      this.store.params.locationId = id;
     },
   },
   watch: {
@@ -252,6 +253,7 @@ export default {
         this.visibleLocations = this.locations;
         this.notFound = false;
         this.openClose(!this.isOpen);
+        delete this.store.params.locationId;
       } else {
         this.notFound = false;
         this.visibleLocations = this.locations.filter((item: TypeLocation) =>

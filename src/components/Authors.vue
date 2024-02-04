@@ -21,7 +21,6 @@
       <div v-if="inpValue.length > 27">...</div>
       <button
         v-if="inpValue != 'Author' && inpValue != ''"
-        class="x"
         @click="inpValue = ''"
       >
         <union />
@@ -52,7 +51,7 @@
           class="item"
           @mouseover="liMOver($event)"
           @mouseout="liMOut($event)"
-          @click="liClick($event)"
+          @click="liClick($event, auth.id)"
           :style="{
             backgroundColor: sBgrndClr,
             color: svgColor,
@@ -215,12 +214,13 @@ export default {
           (this.sYPosition = b))
         : (this.sYPosition = 0);
     },
-    liClick(event: MouseEvent) {
+    liClick(event: MouseEvent, id: number) {
       const a: Partial<HTMLElement> | null = event.target;
       a && a.innerText && (this.inpValue = a.innerText);
       this.count = 0;
       this.openClose(this.isOpen);
       this.isChosen = true;
+      this.store.params.authorId = id;
     },
   },
   watch: {
@@ -254,6 +254,7 @@ export default {
         this.visibleAuthors = this.authors;
         this.notFound = false;
         this.openClose(!this.isOpen);
+        delete this.store.params.authorId;
       } else {
         this.notFound = false;
         this.visibleAuthors = this.authors.filter((item: TypeAuthor) =>

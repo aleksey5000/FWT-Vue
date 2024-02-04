@@ -56,6 +56,7 @@ import arr2L from "../components/svg/arr2L.vue";
 import arrL from "../components/svg/arrL.vue";
 import arr2R from "../components/svg/arr2R.vue";
 import arrR from "../components/svg/arrR.vue";
+import storeType from "../Types/storeType";
 
 export default {
   props: {
@@ -211,13 +212,26 @@ export default {
     },
   },
   watch: {
-    lastPage() {
+    lastPage(newPage: number) {
       this.getPages();
+      newPage == this.currentPage
+        ? (this.isLast = true)
+        : (this.isLast = false);
     },
     currentPage(newPage: number) {
       newPage == 1 ? (this.isFirst = true) : (this.isFirst = false);
       newPage == this.lastPage ? (this.isLast = true) : (this.isLast = false);
       this.getPaintings(newPage);
+    },
+    store: {
+      handler(val: storeType) {
+        this.currentPage = 1;
+        this.getCount();
+        this.getPaintings(this.currentPage);
+        this.store.params = val.params;
+      },
+      deep: true,
+      immediate: true,
     },
   },
   mounted() {

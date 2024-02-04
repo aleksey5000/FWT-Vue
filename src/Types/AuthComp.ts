@@ -1,6 +1,7 @@
 import TypeAuthor from "./AuthorType";
 import { Store } from "pinia";
 import storeType from "./storeType";
+//import TypeActions from "./TypeActions";
 
 type TypeAuthComp = {
   sBgrndClr: string;

@@ -1,5 +1,5 @@
 <template>
-  <div class="paintings">
+  <div class="paintings" v-if="paintings">
     <div v-for="pic in paintings" className="picBlocks">
       <img
         :src="`https://test-front.framework.team${pic.imageUrl}`"
@@ -16,6 +16,8 @@
       </div>
     </div>
   </div>
+  <div v-else>Loading...</div>
+  <div v-if="paintings?.length == 0">Paintings not found</div>
 </template>
 
 <script lang="ts">
@@ -48,6 +50,5 @@ export default {
       return location?.location;
     },
   },
-  watch: {},
 };
 </script>

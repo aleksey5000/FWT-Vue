@@ -14,9 +14,31 @@
       </button>
     </div>
     <div class="inputs" :style="{ display: sDisplay }">
-      <input placeholder="from" :style="{ backgroundColor: sInpClr }" />
+      <div :style="{ backgroundColor: sInpClr }" class="smallInput">
+        <input
+          placeholder="from"
+          v-model="from"
+          type="number"
+          @keydown.enter="changeFrom"
+        />
+        <button v-if="isTextFrom" @click="from = ''"><union /></button>
+        <button v-if="isTextFrom" @click="changeFrom">
+          <arrR color="#555555" :state="false" />
+        </button>
+      </div>
       <hr :style="{ backgroundColor: svgColor }" />
-      <input placeholder="before" :style="{ backgroundColor: sInpClr }" />
+      <div class="smallInput" :style="{ backgroundColor: sInpClr }">
+        <input
+          placeholder="before"
+          v-model="before"
+          type="number"
+          @keydown.enter="changeBefore"
+        />
+        <button v-if="isTextBefore" @ckick="before = ''"><union /></button>
+        <button v-if="isTextBefore" @click="changeBefore">
+          <arrR color="#555555" :state="false" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +46,9 @@
 <script lang="ts">
 import SmallArrow from "../components/svg/SmallArrow.vue";
 import TypeCrComp from "../Types/CreatedComp";
+import Union from "./svg/Union.vue";
+import arrR from "./svg/arrR.vue";
+import useStore from "../store/store";
 
 export default {
   props: {
@@ -38,14 +63,21 @@ export default {
   },
   components: {
     SmallArrow,
+    Union,
+    arrR,
   },
   data(): TypeCrComp {
     return {
       isOpen: false,
+      isTextFrom: false,
+      isTextBefore: false,
+      from: "",
+      before: "",
       sHeight: "45px",
       sDisplay: "none",
       sInpClr: "rgb(239, 239, 239)",
       sBgrndClr: "white",
+      store: useStore(),
     };
   },
   methods: {
@@ -57,6 +89,16 @@ export default {
         : ((this.sHeight = "45px"), (this.sDisplay = "none"));
       this.isOpen = !state;
     },
+    changeFrom() {
+      if (this.from != "") {
+        this.store.params.created_gte = Number(this.from);
+      }
+    },
+    changeBefore() {
+      if (this.from != "") {
+        this.store.params.created_lte = Number(this.before);
+      }
+    },
   },
   watch: {
     isLight(state) {
@@ -64,6 +106,22 @@ export default {
         ? ((this.sInpClr = "rgb(239, 239, 239)"), (this.sBgrndClr = "white"))
         : ((this.sInpClr = "rgb(255, 255, 255)"),
           (this.sBgrndClr = "rgb(12,12,12)"));
+    },
+    from(newValue: string) {
+      if (newValue == "") {
+        delete this.store.params.created_gte;
+        this.isTextFrom = false;
+      } else {
+        this.isTextFrom = true;
+      }
+    },
+    before(newValue: string) {
+      if (newValue == "") {
+        delete this.store.params.created_lte;
+        this.isTextBefore = false;
+      } else {
+        this.isTextBefore = true;
+      }
     },
   },
 };
