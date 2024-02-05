@@ -1,5 +1,5 @@
 <template>
-  <div class="paintings" v-if="paintings">
+  <div class="paintings" v-if="paintings?.length != 0">
     <div v-for="pic in paintings" className="picBlocks">
       <img
         :src="`https://test-front.framework.team${pic.imageUrl}`"
@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
-  <div v-if="paintings?.length == 0">Paintings not found</div>
+  <div v-else>Paintings not found</div>
 </template>
 
 <script lang="ts">
