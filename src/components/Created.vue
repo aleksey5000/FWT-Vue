@@ -22,7 +22,7 @@
           @keydown.enter="changeFrom"
         />
         <button v-if="isTextFrom" @click="from = ''"><union /></button>
-        <button v-if="isTextFrom" @click="!isNaN(Number(from)) && changeFrom">
+        <button v-if="isTextFrom" @click="changeFrom">
           <arrR color="#555555" :state="false" />
         </button>
       </div>
@@ -32,9 +32,9 @@
           placeholder="before"
           v-model="before"
           type="number"
-          @keydown.enter="!isNaN(Number(before)) && changeBefore"
+          @keydown.enter="changeBefore"
         />
-        <button v-if="isTextBefore" @ckick="before = ''"><union /></button>
+        <button v-if="isTextBefore" @click="before = ''"><union /></button>
         <button v-if="isTextBefore" @click="changeBefore">
           <arrR color="#555555" :state="false" />
         </button>
