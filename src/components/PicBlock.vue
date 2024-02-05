@@ -2,7 +2,7 @@
   <div class="pics">
     <paintings :paintings="paintings" />
     <div
-      v-if="isSuccess"
+      v-if="isSuccess && lastPage>1"
       class="pagination"
       :style="{
         borderColor: svgColor,
