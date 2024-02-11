@@ -1,0 +1,143 @@
+@import "./createdComponent.module.scss";
+.listBlock {
+  width: 101%;
+}
+.spaceList {
+  right: 3.0189%;
+}
+@media (max-width: 1365px) {
+  .container {
+    max-width: 1119px;
+    padding: 0 42px;
+  }
+  .spaceList {
+    right: 4%;
+  }
+  .inputs {
+    margin: 20px 10px 0 10px;
+  }
+  .pics {
+    max-width: 1119px;
+    margin-right: 42px;
+  }
+  .paintings {
+    min-height: 980px;
+    max-height: 1159px;
+  }
+  .smallInput {
+    width: 35.849%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .container {
+    max-width: 939px;
+    padding: 0 34px;
+  }
+  .item {
+    padding: 5px;
+  }
+  .spaceList {
+    right: 6%;
+  }
+  .inputs {
+    flex-direction: column;
+    margin-top: 10px;
+    height: 60.52%;
+  }
+  .smallInput {
+    margin-top: 15px;
+    width: 70%;
+  }
+  hr {
+    display: none;
+  }
+  .pics {
+    max-width: 939px;
+    margin-right: 34px;
+    .paintings {
+      min-width: 520px;
+      max-width: 939px;
+      min-height: 1594px;
+      max-height: 1969.7817px;
+      grid-template-rows: repeat(6, 0.7324fr);
+      grid-template-columns: repeat(2, 1fr);
+      .picBlocks {
+        &:nth-child(2n + 1) {
+          margin-left: 0px;
+          margin-right: 10px;
+        }
+        &:nth-child(2n + 2) {
+          margin-left: 10px;
+          margin-right: 0px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    max-width: 699px;
+    padding: 0 20px;
+  }
+  .filters {
+    flex-direction: column;
+  }
+  .firstInput {
+    min-width: 280px;
+    max-width: 700px;
+    margin: 0 0 10px 0;
+  }
+  .list {
+    min-width: 280px;
+    max-width: 700px;
+    margin: 0 0 10px 0;
+  }
+  .listBlock {
+    width: 100.3%;
+  }
+  .spaceList {
+    right: 3%;
+  }
+  .created {
+    min-width: 280px;
+    max-width: 700px;
+    margin: 0;
+  }
+  .inputs {
+    flex-direction: row;
+    margin: 10px 10px 0 10px;
+    height: 45px;
+  }
+  .smallInput {
+    width: 25.849%;
+  }
+  hr {
+    display: block;
+    margin-top: 20px;
+  }
+  .pics {
+    max-width: 699px;
+    top: 398px;
+    margin-right: 10px;
+    .paintings {
+      min-width: 280px;
+      min-height: 2680px;
+      max-width: 767px;
+      max-height: 6010px;
+      grid-template-rows: repeat(12, 0.7322fr);
+      grid-template-columns: repeat(1, 1fr);
+      .picBlocks {
+        &:nth-child(2n + 1) {
+          margin-left: 0px;
+          margin-right: 10px;
+        }
+        &:nth-child(2n + 2) {
+          margin-left: 0px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

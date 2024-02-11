@@ -1,20 +1,13 @@
 <template>
-  <div
-    class="created"
-    :style="{
-      height: sHeight,
-      borderColor: svgColor,
-      backgroundColor: sBgrndClr,
-    }"
-  >
+  <div :data-is-created-component-open="isOpen" class="created">
     <div class="smallArrow">
-      <p :style="{ color: svgColor }">Created</p>
+      <p>Created</p>
       <button @click="openClose(isOpen)">
-        <small-arrow :color="svgColor" />
+        <small-arrow />
       </button>
     </div>
-    <div class="inputs" :style="{ display: sDisplay }">
-      <div :style="{ backgroundColor: sInpClr }" class="smallInput">
+    <div class="inputs">
+      <div class="smallInput">
         <input
           placeholder="from"
           v-model="from"
@@ -23,11 +16,11 @@
         />
         <button v-if="isTextFrom" @click="from = ''"><union /></button>
         <button v-if="isTextFrom" @click="changeFrom">
-          <arrR color="#555555" :state="false" />
+          <arrow-to-right :state="false" />
         </button>
       </div>
-      <hr :style="{ backgroundColor: svgColor }" />
-      <div class="smallInput" :style="{ backgroundColor: sInpClr }">
+      <hr />
+      <div class="smallInput">
         <input
           placeholder="before"
           v-model="before"
@@ -36,7 +29,7 @@
         />
         <button v-if="isTextBefore" @click="before = ''"><union /></button>
         <button v-if="isTextBefore" @click="changeBefore">
-          <arrR color="#555555" :state="false" />
+          <arrow-to-right :state="false" />
         </button>
       </div>
     </div>
@@ -44,49 +37,30 @@
 </template>
 
 <script lang="ts">
-import SmallArrow from "../components/svg/SmallArrow.vue";
-import TypeCrComp from "../Types/CreatedComp";
-import Union from "./svg/Union.vue";
-import arrR from "./svg/arrR.vue";
-import useStore from "../store/store";
+import SmallArrow from "../svg/SmallArrow.vue";
+import TypeCreatedComponent from "./TypeCreatedComponent";
+import Union from "../svg/Union.vue";
+import ArrowToRight from "../svg/ArrowToRight.vue";
+import useStore from "../../store/store";
 
 export default {
-  props: {
-    svgColor: {
-      type: String,
-      required: true,
-    },
-    isLight: {
-      type: Boolean,
-      required: true,
-    },
-  },
   components: {
     SmallArrow,
     Union,
-    arrR,
+    ArrowToRight,
   },
-  data(): TypeCrComp {
+  data(): TypeCreatedComponent {
     return {
       isOpen: false,
       isTextFrom: false,
       isTextBefore: false,
       from: "",
       before: "",
-      sHeight: "45px",
-      sDisplay: "none",
-      sInpClr: "rgb(239, 239, 239)",
-      sBgrndClr: "white",
       store: useStore(),
     };
   },
   methods: {
     openClose(state: boolean) {
-      const wdth = window.innerWidth;
-      state
-        ? ((this.sDisplay = "flex"),
-          wdth > 1023 ? (this.sHeight = "130px") : (this.sHeight = "190px"))
-        : ((this.sHeight = "45px"), (this.sDisplay = "none"));
       this.isOpen = !state;
     },
     changeFrom() {
@@ -101,12 +75,6 @@ export default {
     },
   },
   watch: {
-    isLight(state) {
-      state
-        ? ((this.sInpClr = "rgb(239, 239, 239)"), (this.sBgrndClr = "white"))
-        : ((this.sInpClr = "rgb(255, 255, 255)"),
-          (this.sBgrndClr = "rgb(12,12,12)"));
-    },
     from(newValue: string) {
       if (newValue == "") {
         delete this.store.params.created_gte;
@@ -126,3 +94,57 @@ export default {
   },
 };
 </script>
+
+<style>
+.created {
+  width: 100%;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+}
+.smallArrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  height: 43px;
+}
+.smallArrow p {
+  padding: 15px 0 0 10px;
+}
+.smallArrow button {
+  width: 20px;
+  margin-right: 10px;
+  height: 43px;
+}
+.inputs {
+  justify-content: center;
+  align-items: center;
+}
+.smallInput {
+  height: 45px;
+  border-radius: 8px;
+  display: flex;
+  position: relative;
+}
+.smallInput button {
+  margin-right: 5px;
+}
+.smallInput svg {
+  height: 10px;
+}
+.inputs input {
+  padding-left: 15px;
+  border-radius: 8px;
+  height: 43px;
+  width: 100%;
+  background-color: transparent;
+}
+.inputs input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+hr {
+  margin-inline: 10px;
+  height: 1px;
+  width: 12px;
+}
+</style>

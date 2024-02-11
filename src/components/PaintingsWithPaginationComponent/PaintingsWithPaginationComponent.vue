@@ -1,71 +1,46 @@
 <template>
   <div class="pics">
     <paintings :paintings="paintings" />
-    <div
-      v-if="isSuccess && lastPage>1"
-      class="pagination"
-      :style="{
-        borderColor: svgColor,
-      }"
-    >
-      <button
-        @click="clickArr2L"
-        :style="{
-          borderRightColor: svgColor,
-        }"
-      >
-        <arr2L :color="svgColor" :state="isFirst" />
+    <div v-if="isSuccess && lastPage > 1" class="pagination">
+      <button @click="clickOnTwoArrowsToLeft">
+        <two-arrows-to-left :state="isFirst" />
       </button>
-      <button
-        @click="clickArrL"
-        :style="{
-          borderRightColor: svgColor,
-        }"
-      >
-        <arrL :color="svgColor" :state="isFirst" />
+      <button @click="clickOnArrowToLeft">
+        <arrow-to-left :state="isFirst" />
       </button>
       <button
         v-for="page in pages"
         :style="changeColor(isLight, page)"
         :id="`page ${page}`"
-        @mouseover="mOver($event)"
-        @mouseout="mOut($event)"
+        @mouseover="mouseOverPage($event)"
+        @mouseout="mouseOutPage($event)"
         @click="changePage(page)"
       >
         {{ page }}
       </button>
-      <button
-        @click="clickArrR"
-        :style="{
-          borderRightColor: svgColor,
-        }"
-      >
-        <arrR :color="svgColor" :state="isLast" />
+      <button @click="clickOnArrowToRight">
+        <arrow-to-right :state="isLast" />
       </button>
-      <button @click="clickArr2R">
-        <arr2R :color="svgColor" :state="isLast" />
+      <button @click="clickOnTwoArrowsToRight">
+        <two-arrows-to-right :state="isLast" />
       </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Paintings from "./Paintings.vue";
+import Paintings from "../Paintings/Paintings.vue";
 import axios from "axios";
-import useStore from "../store/store";
-import TypePicBlockComp from "../Types/PicBlockComp";
-import arr2L from "../components/svg/arr2L.vue";
-import arrL from "../components/svg/arrL.vue";
-import arr2R from "../components/svg/arr2R.vue";
-import arrR from "../components/svg/arrR.vue";
-import storeType from "../Types/storeType";
+import useStore from "../../store/store";
+import TypePaintingsWithPagination from "./TypePaintingsWithPagination";
+import TwoArrowsToLeft from "../svg/TwoArrowsToLeft.vue";
+import ArrowToLeft from "../svg/ArrowToLeft.vue";
+import TwoArrowsToRight from "../svg/TwoArrowsToRight.vue";
+import ArrowToRight from "../svg/ArrowToRight.vue";
+import TypeStore from "../../store/TypeStore";
 
 export default {
   props: {
-    svgColor: {
-      type: String,
-      required: true,
-    },
     isLight: {
       type: Boolean,
       required: true,
@@ -73,12 +48,12 @@ export default {
   },
   components: {
     Paintings,
-    arr2L,
-    arrL,
-    arr2R,
-    arrR,
+    TwoArrowsToLeft,
+    ArrowToLeft,
+    TwoArrowsToRight,
+    ArrowToRight,
   },
-  data(): TypePicBlockComp {
+  data(): TypePaintingsWithPagination {
     return {
       pages: [1],
       limit: 12,
@@ -123,36 +98,42 @@ export default {
       }
     },
     getPages() {
-      this.lastPage >= 3
-        ? (this.pages = [1, 2, 3])
-        : this.lastPage == 2
-          ? (this.pages = [1, 2])
-          : (this.pages = [1]);
+      if (this.lastPage >= 3) {
+        this.pages = [1, 2, 3];
+      } else {
+        if (this.lastPage == 2) {
+          this.pages = [1, 2];
+        } else {
+          this.pages = [1];
+        }
+      }
     },
-    mOver(event: MouseEvent) {
+    mouseOverPage(event: MouseEvent) {
       const a: Partial<HTMLElement> | null = event.target;
-      this.currentPage != Number(a?.innerText) &&
-        a &&
-        a.style &&
-        (a.style.backgroundColor = "rgba(237,237,237,0.75)");
+      if (this.currentPage != Number(a?.innerText) && a?.style) {
+        a.style.backgroundColor = "rgba(237,237,237,0.75)";
+      }
     },
-
-    mOut(event: MouseEvent) {
+    mouseOutPage(event: MouseEvent) {
       const a: Partial<HTMLElement> | null = event.target;
-      this.currentPage != Number(a?.innerText) &&
-        a &&
-        a.style &&
-        (a.style.backgroundColor = "transparent");
+      if (this.currentPage != Number(a?.innerText) && a?.style) {
+        a.style.backgroundColor = "transparent";
+      }
     },
     changePage(page: number) {
       this.currentPage = page;
     },
-    clickArr2L() {
-      this.currentPage != 1 &&
-        ((this.currentPage = 1),
-        this.lastPage != 2 ? (this.pages = [1, 2, 3]) : (this.pages = [1, 2]));
+    clickOnTwoArrowsToLeft() {
+      if (this.currentPage != 1) {
+        this.currentPage = 1;
+        if (this.lastPage != 2) {
+          this.pages = [1, 2, 3];
+        } else {
+          this.pages = [1, 2];
+        }
+      }
     },
-    clickArrL() {
+    clickOnArrowToLeft() {
       if (this.currentPage != 1) {
         this.currentPage -= 1;
         if (this.currentPage >= 3 && this.currentPage < this.lastPage) {
@@ -164,7 +145,7 @@ export default {
         }
       }
     },
-    clickArrR() {
+    clickOnArrowToRight() {
       if (this.currentPage != this.lastPage) {
         this.currentPage += 1;
         if (this.currentPage >= 2 && this.currentPage < this.lastPage - 1) {
@@ -176,12 +157,15 @@ export default {
         }
       }
     },
-    clickArr2R() {
-      this.currentPage != this.lastPage &&
-        ((this.currentPage = this.lastPage),
-        this.lastPage != 2
-          ? (this.pages = [this.lastPage - 2, this.lastPage - 1, this.lastPage])
-          : (this.pages = [1, 2]));
+    clickOnTwoArrowsToRight() {
+      if (this.currentPage != this.lastPage) {
+        this.currentPage = this.lastPage;
+        if (this.lastPage != 2) {
+          this.pages = [this.lastPage - 2, this.lastPage - 1, this.lastPage];
+        } else {
+          this.pages = [1, 2];
+        }
+      }
     },
     changeColor(light: boolean, page: number) {
       if (light) {
@@ -216,24 +200,33 @@ export default {
   watch: {
     lastPage(newPage: number) {
       this.getPages();
-      newPage == this.currentPage
-        ? (this.isLast = true)
-        : (this.isLast = false);
+      if (newPage == this.currentPage) {
+        this.isLast = true;
+      } else {
+        this.isLast = false;
+      }
     },
     currentPage(newPage: number) {
-      newPage == 1 ? (this.isFirst = true) : (this.isFirst = false);
-      newPage == this.lastPage ? (this.isLast = true) : (this.isLast = false);
+      if (newPage == 1) {
+        this.isFirst = true;
+      } else {
+        this.isFirst = false;
+      }
+      if (newPage == this.lastPage) {
+        this.isLast = true;
+      } else {
+        this.isLast = false;
+      }
       this.getPaintings(newPage);
     },
     store: {
-      handler(val: storeType) {
+      handler(val: TypeStore) {
         this.currentPage = 1;
         this.getCount();
         this.getPaintings(this.currentPage);
         this.store.params = val.params;
       },
       deep: true,
-      immediate: true,
     },
   },
   mounted() {
@@ -242,3 +235,25 @@ export default {
   },
 };
 </script>
+
+<style>
+.pics {
+  position: absolute;
+  max-width: 1120px;
+}
+.pagination {
+  margin-top: 35px;
+  display: inline-flex;
+  align-items: top;
+  border-radius: 8px;
+  margin-bottom: 100px;
+}
+.pagination button {
+  width: 41px;
+  height: 41px;
+  cursor: default;
+}
+.pagination button:last-child {
+  border-right: none;
+}
+</style>

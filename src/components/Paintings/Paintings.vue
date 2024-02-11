@@ -20,11 +20,11 @@
 </template>
 
 <script lang="ts">
-import TypePics from "../Types/PaintingsType";
-import TypePaintings from "../Types/PaintingsComp";
-import TypeAuthor from "../Types/AuthorType";
-import TypeLocation from "../Types/LocationType";
-import useStore from "../store/store";
+import TypePics from "../Paintings/TypePaintings";
+import TypePaintings from "../Paintings/TypePaintingsComponent";
+import TypeAuthor from "../AuthorSelect/TypeAuthor";
+import TypeLocation from "../LocationSelect/TypeLocation";
+import useStore from "../../store/store";
 
 export default {
   props: {
@@ -51,3 +51,33 @@ export default {
   },
 };
 </script>
+
+<style>
+.picBlocks img {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.picBlocks div {
+  padding: 5px 0 0 15px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.75);
+  color: black;
+  z-index: 1;
+  width: 100%;
+  height: 145px;
+  bottom: 30px;
+}
+.picBlocks div h1 {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+.picBlocks div span {
+  font-weight: 500;
+}
+.picBlocks div:hover {
+  bottom: 145px;
+}
+</style>

@@ -6,38 +6,39 @@
       </div>
       <div>
         <button @click="changeTheme(isLight)">
-          <sun :color="sunColor" />
+          <sun />
         </button>
       </div>
     </header>
     <main>
       <div class="filters">
-        <first-input :svgColor="sunColor" :isLight="isLight" />
-        <authors :svgColor="sunColor" :isLight="isLight" />
-        <locations :svgColor="sunColor" :isLight="isLight" />
-        <created :svgColor="sunColor" :isLight="isLight" />
+        <name-input-component />
+        <author-select :isLight="isLight" />
+        <location-select :isLight="isLight" />
+        <created-component />
       </div>
-      <pic-block :svgColor="sunColor" :isLight="isLight" />
+      <paintings-with-pagination-component :isLight="isLight" />
     </main>
   </div>
 </template>
 
 <script lang="ts">
-import sun from "./components/svg/sun.vue";
-import FirstInput from "./components/FirstInput.vue";
-import Authors from "./components/Authors.vue";
-import Locations from "./components/Locations.vue";
-import Created from "./components/Created.vue";
-import PicBlock from "./components/PicBlock.vue";
+import "./App.scss";
+import Sun from "./components/svg/Sun.vue";
+import NameInputComponent from "./components/NameInputComponent/NameInputComponent.vue";
+import AuthorSelect from "./components/AuthorSelect/AuthorSelect.vue";
+import LocationSelect from "./components/LocationSelect/LocationSelect.vue";
+import CreatedComponent from "./components/CreatedComponent/CreatedComponent.vue";
+import PaintingsWithPaginationComponent from "./components/PaintingsWithPaginationComponent/PaintingsWithPaginationComponent.vue";
 
 export default {
   components: {
-    sun,
-    FirstInput,
-    Authors,
-    Locations,
-    Created,
-    PicBlock,
+    Sun,
+    NameInputComponent,
+    AuthorSelect,
+    LocationSelect,
+    CreatedComponent,
+    PaintingsWithPaginationComponent,
   },
   data() {
     return {
@@ -47,13 +48,38 @@ export default {
   },
   methods: {
     changeTheme(state: boolean) {
-      state
-        ? ((document.body.style.backgroundColor = "black"),
-          (this.sunColor = "white"))
-        : ((document.body.style.backgroundColor = "white"),
-          (this.sunColor = "black"));
       this.isLight = !state;
+      document.body.setAttribute("data-isLight", `${this.isLight}`);
+      state ? (this.sunColor = "white") : (this.sunColor = "black");
     },
   },
 };
 </script>
+
+<style>
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  margin: auto;
+}
+.container {
+  border-bottom: none;
+  max-width: 1120px;
+  max-height: 100%;
+  margin: auto;
+  position: relative;
+}
+header {
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.filters {
+  display: flex;
+  align-items: top;
+  margin-top: 35px;
+}
+</style>

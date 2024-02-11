@@ -1,8 +1,8 @@
 import { Store } from "pinia";
-import storeType from "./storeType";
+import TypeStore from "../../store/TypeStore";
 
 type TypePaintings = {
-  store: Store<string, storeType>;
+  store: Store<string, TypeStore>;
 };
 
 export default TypePaintings;

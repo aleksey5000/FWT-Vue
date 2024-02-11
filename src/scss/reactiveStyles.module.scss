@@ -1,0 +1,127 @@
+:root {
+  --background-color: white;
+  --border-color: black;
+  --dark-select-color: white;
+  --is-light: true;
+  --created-component-input-color: rgb(239, 239, 239);
+  --created-component-height: 45px;
+  --created-component-inputs-visibility: none;
+}
+
+body[data-isLight="true"] {
+  --background-color: white;
+  --border-color: black;
+  --dark-select-color: white;
+  --created-component-input-color: rgb(239, 239, 239);
+}
+body[data-isLight="false"] {
+  --background-color: black;
+  --border-color: white;
+  --dark-select-color: rgb(12, 12, 12);
+  --created-component-input-color: white;
+}
+.list[data-is-open="false"] {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-color: var(--border-color);
+  .listBlock {
+    border-width: 0px;
+  }
+}
+.list[data-is-open="true"] {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-color: grey;
+  .listBlock {
+    border-width: 1px;
+  }
+}
+.created[data-is-created-component-open="false"] {
+  --created-component-height: 45px;
+  --created-component-inputs-visibility: none;
+}
+.created[data-is-created-component-open="true"] {
+  --created-component-height: 130px;
+  --created-component-inputs-visibility: flex;
+  @media (max-width: 1023px) {
+    --created-component-height: 190px;
+  }
+  @media (max-width: 767px) {
+    --created-component-height: 130px;
+  }
+}
+
+body {
+  background-color: var(--background-color);
+}
+.sun {
+  fill: var(--border-color);
+}
+.firstInput {
+  border: 1px solid;
+  background-color: var(--dark-select-color);
+  border-color: var(--border-color);
+  input {
+    color: var(--border-color);
+    background-color: var(--dark-select-color);
+  }
+}
+.smallArrow {
+  fill: var(--border-color);
+}
+.arrowToLeft {
+  fill: var(--border-color);
+}
+.arrowToRight {
+  fill: var(--border-color);
+}
+.twoArrowsToLeft {
+  fill: var(--border-color);
+}
+.twoArrowsToRight {
+  fill: var(--border-color);
+}
+.list {
+  border-color: var(--border-color);
+  background-color: var(--dark-select-color);
+  input {
+    color: var(--border-color);
+  }
+  .listBlock {
+    border-color: var(--border-color);
+  }
+  .notSuccess {
+    border-color: var(--border-color);
+  }
+}
+
+.created {
+  border: 1px solid;
+  border-color: var(--border-color);
+  background-color: var(--dark-select-color);
+  height: var(--created-component-height);
+  p {
+    color: var(--border-color);
+  }
+  hr {
+    background-color: var(--border-color);
+  }
+  .inputs {
+    display: var(--created-component-inputs-visibility);
+    .smallInput {
+      background-color: var(--created-component-input-color);
+      .arrowToRight {
+        fill: #555555;
+      }
+    }
+  }
+}
+.pagination {
+  border: 1px solid;
+  border-color: var(--border-color);
+  button {
+    border-right: 1px solid;
+    border-right-color: var(--border-color);
+  }
+  border-color: var(--border-color);
+}

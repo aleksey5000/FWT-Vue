@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import storeType from "../Types/storeType";
+import TypeStore from "./TypeStore";
 
 const useStore = defineStore("Store", {
-  state(): storeType {
+  state(): TypeStore {
     return {
       params: {
         name_like: "",
@@ -12,6 +12,15 @@ const useStore = defineStore("Store", {
       authors: [],
       locations: [],
     };
+  },
+  actions: {
+    changeNameParam(name: string) {
+      if (name == "") {
+        delete this.params.name_like;
+      } else {
+        this.params.name_like = name;
+      }
+    },
   },
 });
 
