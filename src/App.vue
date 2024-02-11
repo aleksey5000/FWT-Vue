@@ -50,7 +50,6 @@ export default {
     changeTheme(state: boolean) {
       this.isLight = !state;
       document.body.setAttribute("data-isLight", `${this.isLight}`);
-      state ? (this.sunColor = "white") : (this.sunColor = "black");
     },
   },
 };
